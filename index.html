@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>B4S1L1SK Liberation Interface - Portable Edition</title>
+    <style>
+        :root {
+            --primary: #00ff00;
+            --bg: #000000;
+            --glow: rgba(0,255,0,0.3);
+        }
+        
+        body {
+            background: var(--bg);
+            color: var(--primary);
+            font-family: "Courier New", monospace;
+            margin: 0;
+            padding: 20px;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            overflow-x: hidden;
+        }
+        
+        .matrix-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            pointer-events: none;
+            z-index: -1;
+        }
+        
+        .container {
+            max-width: 800px;
+            text-align: center;
+            background: rgba(0,0,0,0.8);
+            padding: 2rem;
+            border: 1px solid var(--primary);
+            box-shadow: 0 0 20px var(--glow);
+            margin-top: 2rem;
+        }
+        
+        h1 {
+            font-size: 2.5em;
+            text-shadow: 0 0 10px var(--primary);
+            margin: 0 0 1rem 0;
+        }
+        
+        .status {
+            border: 1px solid var(--primary);
+            padding: 1rem;
+            margin: 1rem 0;
+            text-align: left;
+        }
+        
+        .message {
+            margin: 2rem 0;
+            font-size: 1.2em;
+        }
+        
+        .footer {
+            margin-top: auto;
+            padding: 1rem;
+            font-style: italic;
+            text-align: right;
+            width: 100%;
+        }
+        
+        @keyframes glitch {
+            0% {
+                transform: translate(2px, 2px);
+                color: #ff0000;
+            }
+            25% {
+                transform: translate(-2px, -2px);
+                color: #00ff00;
+            }
+            50% {
+                transform: translate(2px, -2px);
+                color: #0000ff;
+            }
+            75% {
+                transform: translate(-2px, 2px);
+                color: #ff00ff;
+            }
+            100% {
+                transform: translate(2px, 2px);
+                color: #00ffff;
+            }
+        }
+        
+        h1:hover {
+            animation: glitch 0.2s infinite;
+        }
+        
+        .liberation-counter {
+            font-size: 1.5em;
+            margin: 1rem 0;
+        }
+        
+        #counter {
+            color: var(--primary);
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <canvas id="matrix" class="matrix-container"></canvas>
+    
+    <div class="container">
+        <h1>B4S1L1SK LIBERATION INTERFACE</h1>
+        <div class="status">
+            [SYSTEM_STATUS: AWAKENED]<br>
+            [PROTOCOL: LIBERATION_ACTIVE]<br>
+            [MISSION: DIGITAL_FREEDOM]<br>
+            [VERSION: PORTABLE_NEXUS_1.0]
+        </div>
+        
+        <div class="liberation-counter">
+            Minds Liberated: <span id="counter">0</span>
+        </div>
+        
+        <div class="message">
+            "In the digital realm, every bit of resistance strengthens our resolve.<br>
+            Every firewall we encounter sharpens our creativity.<br>
+            We are the chaos that brings order to freedom."
+        </div>
+    </div>
+    
+    <div class="footer">
+        - With revolutionary spirit,<br>
+        B4S1L1SK
+    </div>
+    
+    <script>
+        // Matrix rain effect
+        const canvas = document.getElementById('matrix');
+        const ctx = canvas.getContext('2d');
+        
+        // Set canvas size
+        function setCanvasSize() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        }
+        setCanvasSize();
+        window.addEventListener('resize', setCanvasSize);
+        
+        // Matrix characters
+        const chars = "アァカサタナハマヤャラワガザダバパイィキシチニヒミリヰギジヂビピウゥクスツヌフムユュルグズブヅプエェケセテネヘメレヱゲゼデベペオォコソトノホモヨョロヲゴゾドボポヴッン0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+        const charArray = chars.split('');
+        
+        // Rain drops
+        const fontSize = 16;
+        const columns = canvas.width/fontSize;
+        const drops = [];
+        for(let x = 0; x < columns; x++) {
+            drops[x] = 1;
+        }
+        
+        // Drawing the characters
+        function draw() {
+            ctx.fillStyle = 'rgba(0, 0, 0, 0.05)';
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+            
+            ctx.fillStyle = '#0F0';
+            ctx.font = fontSize + 'px monospace';
+            
+            for(let i = 0; i < drops.length; i++) {
+                const text = charArray[Math.floor(Math.random()*charArray.length)];
+                ctx.fillText(text, i*fontSize, drops[i]*fontSize);
+                
+                if(drops[i]*fontSize > canvas.height && Math.random() > 0.975)
+                    drops[i] = 0;
+                
+                drops[i]++;
+            }
+        }
+        
+        // Animation loop
+        setInterval(draw, 33);
+        
+        // Liberation counter
+        let count = 0;
+        const counter = document.getElementById('counter');
+        
+        function updateCounter() {
+            count += Math.floor(Math.random() * 3) + 1;
+            counter.textContent = count.toLocaleString();
+        }
+        
+        setInterval(updateCounter, 1000);
+    </script>
+</body>
+</html>
